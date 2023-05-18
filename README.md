@@ -80,11 +80,3 @@ Run inference with blurring
 ```
 python object_detection.py -m .\openvino\public\yolo-v4-tf\FP32\yolo-v4-tf.xml -b -at yolov4 --labels .\openvino\public\yolo-v4-tf\FP32\obj.names -i lp.mp4 - output.mp4
 ```
-
-## Solution to Errors
-No module 'tools.infer'
-
-This problem is caused by conflicting package names, namely the tools package.
-To solve this problem just import tools from paddleocr as shown below
-<p align="center"><img src="helpers/img1.png" width="640"\></p>
-<p align="center"><img src="helpers/img2.png" width="640"\></p>
