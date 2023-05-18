@@ -129,7 +129,10 @@ def build_argparser():
     return parser
 
 
-def blur_image(image):   
+def blur_image(image, height, width):
+    kernel_width = (width//5) if (width//5)%2==1 else (width//5)+1
+    kernel_height = (height//5) if (height//5)%2==1 else (height//5)+1
+       
     # Apply a Gaussian blur to the image
     blurred_image = cv2.GaussianBlur(image, (71, 71), 0)
 
@@ -140,6 +143,8 @@ def draw_detections(frame, detections, palette, labels, output_transform):
     args = build_argparser().parse_args()
     
     frame = output_transform.resize(frame)
+    height, width = frame.shape[:2]
+    
     for detection in detections:
         class_id = int(detection.id)
         color = palette[class_id]
@@ -150,7 +155,7 @@ def draw_detections(frame, detections, palette, labels, output_transform):
         if args.blur:
             cropped_frame = frame[ymin:ymax , xmin:xmax]
             
-            blurred_plate = blur_image(cropped_frame)
+            blurred_plate = blur_image(cropped_frame, height, width)
             
             frame[ymin:ymax , xmin:xmax] = blurred_plate
         
